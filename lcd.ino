@@ -1,11 +1,16 @@
+#include <Button.hpp>
+#include <LED.hpp>
+//#include <Pin.hpp>
+#include <Timer.hpp>
+
 #include <LiquidCrystal.h>
 
-#define D7 7
-#define D6 8
-#define D5 9
-#define D4 10
-#define E 11
-#define RS 12
+#define D7 12
+#define D6 11
+#define D5 10
+#define D4 9
+#define E 5
+#define RS 3
 #define IN_A_POTENT 14
 
 LiquidCrystal lcd(RS, E, D4, D5, D6, D7);
