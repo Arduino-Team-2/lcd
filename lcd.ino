@@ -1,7 +1,5 @@
-#include <Button.hpp>
+#include <Pin.hpp>
 #include <LED.hpp>
-//#include <Pin.hpp>
-#include <Timer.hpp>
 
 #include <LiquidCrystal.h>
 
@@ -12,22 +10,31 @@
 #define E 5
 #define RS 3
 #define IN_A_POTENT 14
+#define OUT_LED_RED 6
 
 LiquidCrystal lcd(RS, E, D4, D5, D6, D7);
 
+AnalogPin potentPin(IN_A_POTENT, AnalogPin::Mode::Input);
+AnalogLED redLED(OUT_LED_RED);
+
 void setup() {
+  Serial.begin(9600);
   lcd.begin(16,2);
-  pinMode(IN_A_POTENT, INPUT);
 }
 
 void loop() {
-  float potent = analogRead(IN_A_POTENT) / 1024.f ;
+  float potent = potentPin.read() / 1024.f ;
 
+  redLED.setBrightness(potent);
+  Serial.println((int)(potent * 255));
+  
   lcd.clear();
   lcd.print("Potentiometer:");
 
   lcd.setCursor(0, 1);
   lcd.print(potent);
+
   
+
   delay(50);
 }
