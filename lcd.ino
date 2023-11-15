@@ -20,12 +20,12 @@ AnalogLED redLED(OUT_LED_RED);
 void setup() {
   Serial.begin(9600);
   lcd.begin(16,2);
+  Serial.setTimeout(50);
 }
 
 void loop() {
   float potent = potentPin.read() / 1024.f ;
 
-  redLED.setBrightness(potent);
   Serial.println((int)(potent * 255));
   
   lcd.clear();
@@ -34,7 +34,10 @@ void loop() {
   lcd.setCursor(0, 1);
   lcd.print(potent);
 
+  String input = Serial.readString();
+  if (input != "")
+    redLED.setBrightness(input.toFloat());
+
   
 
-  delay(50);
 }
